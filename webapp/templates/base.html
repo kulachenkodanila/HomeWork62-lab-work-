@@ -13,7 +13,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand" href={% url 'webapp:index' %}>Домой</a>
+        <a class="navbar-brand" href={% url 'webapp:index' %}>Главная</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -21,6 +21,22 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 {% block nav %}{% endblock %}
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "accounts:logout" %}">Выход</a>
+                    </li>
+                    <li class="nav-item">
+                        <p class="nav-link"><a
+                                href="{% url "accounts:profile" request.user.pk %}">{{ user.username }}</a></p>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "accounts:login" %}?next={{ request.get_full_path }}">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url "accounts:registration" %}?next={{ request.get_full_path }}">Зарегистрироваться</a>
+                    </li>
+                {% endif %}
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'webapp:product_create' %}">Создание товара</a>

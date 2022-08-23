@@ -18,12 +18,6 @@ class CartAddView(CreateView):
             return HttpResponseBadRequest(
                 f"Количество товара {product.name} всего {product.amount}. Добавить {qty} штук не получится")
         else:
-            # try:
-            #     cart_product = Cart.objects.get(product=product)
-            #     cart_product.qty += qty
-            #     cart_product.save()
-            # except Cart.DoesNotExist:
-            #     Cart.objects.create(product=product, qty=qty)
             cart_product, is_created = Cart.objects.get_or_create(product=product)
             if is_created:
                 cart_product.qty = qty
@@ -83,15 +77,6 @@ class OrderCreate(CreateView):
     form_class = OrderForm
     success_url = reverse_lazy('webapp:index')
 
-    # def form_valid(self, form):
-    #     order = form.save()
-    #     for item in Cart.objects.all():
-    #         OrderProduct.objects.create(product=item.product, qty=item.qty, order=order)
-    #         item.product.amount -= item.qty
-    #         item.product.save()
-    #         item.delete()
-    #
-    #     return HttpResponseRedirect(self.success_url)
 
     def form_valid(self, form):
         order = form.save()
