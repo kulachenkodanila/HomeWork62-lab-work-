@@ -3,8 +3,10 @@
 {% block title %}Просмотр{% endblock %}
 
 {% block nav %}
+    {% if request.user.is_authenticated %}
     <li class="nav-item"><a class="nav-link" href="{% url 'webapp:product_update' product.pk %}">Изменить</a></li>
     <li class="nav-item"><a class="nav-link" href="{% url 'webapp:product_delete' product.pk %}">Удалить</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}

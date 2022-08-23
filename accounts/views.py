@@ -15,11 +15,6 @@ class RegisterView(CreateView):
     template_name = 'registration.html'
     form_class = MyUserCreationForm
 
-    # def form_valid(self, form):
-    #     user = form.save()
-    #     self.objects.create(user=user)
-    #     login(self.request, user)
-    #     return redirect(self.get_success_url())
 
     def get_success_url(self):
         next_url = self.request.GET.get('next')

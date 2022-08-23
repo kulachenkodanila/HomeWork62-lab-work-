@@ -25,6 +25,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "accounts:logout" %}">Выход</a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'webapp:product_create' %}">Создание товара</a>
+                </li>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url "accounts:login" %}?next={{ request.get_full_path }}">Вход</a>
@@ -34,9 +37,7 @@
                     </li>
                 {% endif %}
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'webapp:product_create' %}">Создание товара</a>
-                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'webapp:cart' %}">Корзина</a>
                 </li>
